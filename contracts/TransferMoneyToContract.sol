@@ -28,6 +28,6 @@ contract TransferMoneyToContract is Owner{
     //that why i inherited Owner
     //but because changing a global  variable will always need gas fee, am contemplating making gas fee static or finding a better way to make it better! 
     function changeFee (uint32 newFee) external isOwner {
-
+       gasFee = newFee * 1 ether;
     }
 }
