@@ -27,15 +27,16 @@ contract KingNFT is ERC721Full, Owner{
     _TokenIdExists[_tokenId]  = true;
     }
 
-    function balanceOfAddress(address _owner) external override view returns (uint256) {
+    function balanceOfAddress(address _owner) external view returns (uint256) {
     // 1. Return the number of tokens the `_owner` has here
-    return OwnerTokenCount[_owner];
+    return balanceOf(_owner);
     }
 
-  function ownerOf(uint256 _tokenId) external override view returns (address) {
+  function ownerOfToken(uint256 _tokenId) external view returns (address) {
     // 2. Return the owner of `_tokenId` here
-    return TokenToOwner[_tokenId];
+    return ownerOf(_tokenId);
   }
+
 
   function transferFrom(address _from, address _to, uint256 _tokenId) public override {
       //require approved owner to do the calling
