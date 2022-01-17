@@ -40,7 +40,8 @@ contract KingNFT is ERC721Full, Owner{
 
   function transferFrom(address _from, address _to, uint256 _tokenId) external payable {
       //require approved owner to do the calling
-      require (TokenApproval[_to] 
+      require (TokenApproval[_tokenId] == msg.sender);
+        _transfer(_from, _to, _tokenId);
   }
 
   function approve(address _approved, uint256 _tokenId) external payable {
