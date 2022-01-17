@@ -6,22 +6,26 @@ import "@openzeppelin/contracts/token/ERC721/ERC721Full.sol";
 
 contract KingNFT is ERC721Full, Owner{
     uint [] public KingNFTTokens;
-    mapping (string => bool) _randomStringExists;
+
+    event Transfer(address indexed _from, address indexed _to, uint256 indexed _tokenId);
+    event Approval(address indexed _owner, address indexed _approved, uint256 indexed _tokenId);
+
+    mapping (string => bool) _TokenIdExists;
     mapping (address => uint) OwnerTokenCount;
     mapping (uint => address) TokenToOwner;
-    mapping (address => uint) Approval;
+    mapping (uint => address) TokenApproval;
     
     constructor() ERC721Full("KingNFT", "KNFT"){
     }
 
     function mint() external onlyOwner{
     //generate a random number
-    string _randomNum;
-    require (!_randomStringExists[_randomNum]);
-    uint _id = KingNFTTokens.push(randomNum);
+    uint _tokenId;
+    require (!_TokenIdExists[_tokenId]);
+    uint _id = KingNFTTokens.push(tokenId);
     _mint(msg.sender, _id);
     OwnerTokenCount[msg.sender]++; 
-    _randomStringExists[randomNum] = true;
+    _randomStringExists[tokenId] = true;
     }
 
     function balanceOf(address _owner) external view returns (uint256) {
@@ -35,10 +39,15 @@ contract KingNFT is ERC721Full, Owner{
   }
 
   function transferFrom(address _from, address _to, uint256 _tokenId) external payable {
-
+      //require approved owner to do the calling
+      require (TokenApproval[_to] 
   }
 
   function approve(address _approved, uint256 _tokenId) external payable {
-
+      //require sender actually owns _tokenId
+    require (TokenToOwner[_tokenId] == msg.sender);
+      //Add approve to the _approved address
+    TokenApproval[_tokenId] = approved; 
+    emit Approval(msg.sender, _approved, _tokenId);     
   }
 } 
